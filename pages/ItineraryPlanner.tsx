@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Minus, Wand2, Clock, MapPin, ArrowLeft, Save, Loader2, Copy, Check, Tag } from 'lucide-react';
+import { Plus, Minus, Wand2, Clock, MapPin, ArrowLeft, Save, Loader2, Copy, Check } from 'lucide-react';
 import { generateItinerary } from '../services/geminiService';
 import { FullItinerary } from '../types';
 

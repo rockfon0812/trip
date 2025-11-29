@@ -16,7 +16,8 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeRoute, onNavigate }) => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200 pb-safe pt-2 px-6 z-50">
-      <div className="flex justify-between items-center max-w-md mx-auto">
+      {/* Changed max-w-md to max-w-2xl to match Layout */}
+      <div className="flex justify-between items-center max-w-2xl mx-auto">
         {navItems.map((item) => {
           const isActive = activeRoute === item.id;
           return (

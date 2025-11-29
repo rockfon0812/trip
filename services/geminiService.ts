@@ -1,10 +1,11 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
-import { DailyPlan, FullItinerary } from "../types";
+import { FullItinerary } from "../types";
 
-const apiKey = process.env.API_KEY || ''; 
+// Declare process to satisfy TypeScript in browser environment where Vite replaces process.env
+declare const process: { env: { API_KEY: string } };
 
 // Helper to get client (creates new instance to ensure key freshness if needed)
-const getClient = () => new GoogleGenAI({ apiKey });
+const getClient = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 // 1. Discovery Mode: Uses Google Maps Grounding
 export const searchPlaces = async (
@@ -123,8 +124,11 @@ export const generateItinerary = async (
       },
     });
 
-    const jsonText = response.text;
+    let jsonText = response.text;
     if (!jsonText) throw new Error("No itinerary generated.");
+
+    // Clean Markdown code blocks if present (e.g. ```json ... ```)
+    jsonText = jsonText.replace(/^```json\s*/, "").replace(/\s*```$/, "");
 
     const parsed = JSON.parse(jsonText);
     
